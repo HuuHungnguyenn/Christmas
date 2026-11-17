@@ -410,11 +410,8 @@ function draw(t) {
   context.restore();
 }
 
-const pauseButton = document.querySelector("#pause");
-const replayButton = document.querySelector("#replay");
-const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-let time = 20;
-let paused = reducedMotion.matches;
+let time = 0;
+let paused = false;
 let frameId = 0;
 let previous = null;
 
@@ -429,27 +426,24 @@ function animate(now) {
 
 function setPaused(value) {
   paused = value;
-  pauseButton.textContent = paused ? "Tiếp tục" : "Tạm dừng";
   cancelAnimationFrame(frameId);
   previous = null;
   if (!paused) frameId = requestAnimationFrame(animate);
 }
 
-pauseButton.addEventListener("click", () => setPaused(!paused));
-replayButton.addEventListener("click", () => {
+function restart() {
   time = 0;
   draw(time);
   setPaused(false);
-});
-reducedMotion.addEventListener("change", ({ matches }) => setPaused(matches));
+}
+
 document.addEventListener("keydown", (event) => {
   if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
   if (event.code === "Space" && event.target === document.body) {
     event.preventDefault();
-    pauseButton.click();
+    setPaused(!paused);
   }
-  if (event.key.toLowerCase() === "r") replayButton.click();
+  if (event.key.toLowerCase() === "r") restart();
 });
 
-draw(time);
-setPaused(paused);
+restart();
