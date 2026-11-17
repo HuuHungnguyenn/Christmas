@@ -16,32 +16,12 @@ body {
 .scene {
   display: grid;
   justify-items: center;
-  gap: 8px;
   padding: 8px;
 }
 
 canvas {
   display: block;
-  width: min(calc(100vw - 16px), calc((100vh - 68px) * .7135), 792px);
-  width: min(calc(100vw - 16px), calc((100svh - 68px) * .7135), 792px);
+  width: min(calc(100vw - 16px), calc((100vh - 16px) * .7135), 792px);
+  width: min(calc(100vw - 16px), calc((100svh - 16px) * .7135), 792px);
   height: auto;
 }
-
-.controls {
-  display: flex;
-  gap: 8px;
-}
-
-button {
-  min-height: 44px;
-  padding: 6px 14px;
-  border: 1px solid #393d46;
-  border-radius: 8px;
-  background: #10151e;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-button:hover { background: #1e2530; }
-button:focus-visible { outline: 2px solid #ffc45a; outline-offset: 2px; }
